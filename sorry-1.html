@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>i love you diyu</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --fg: #2b2623;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #1c1917; --fg: #f3ede6; }
+  }
+  :root[data-theme="dark"] { --bg: #1c1917; --fg: #f3ede6; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    text-align: center;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  h1 { font-weight: 400; font-size: clamp(1.8rem, 8vw, 3.5rem); margin: 1.5rem 1rem 0.5rem; }
+  .sub { opacity: 0.7; margin: 0 1rem 1.5rem; }
+  ol { list-style: none; margin: 0 auto; padding: 0 1rem 3rem; max-width: 560px; }
+  li { padding: 0.7rem 0; border-bottom: 1px solid rgba(128,128,128,0.25); font-size: 1.15rem; }
+  .n { display: inline-block; min-width: 2.6rem; font-weight: bold; opacity: 0.6; }
+  .btns { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin: 0 1rem 1rem; }
+  button { font: inherit; font-size: 1rem; padding: 0.7rem 1.1rem; border: 0; border-radius: 999px; background: #e84a7f; color: #fff; cursor: pointer; }
+  button:active { transform: scale(0.96); }
+  #msg { min-height: 1.6rem; font-size: 1.2rem; margin: 0 1rem 1rem; }
+  .heart { position: fixed; bottom: -2rem; font-size: 1.8rem; pointer-events: none; z-index: 20; animation: floatUp 3s linear forwards; }
+  @keyframes floatUp { to { transform: translateY(-110vh) rotate(20deg); opacity: 0; } }
+</style>
+</head>
+<body>
+  <h1>i love you diyu ❤️</h1>
+  <p class="sub">For my one and only Diyu 🥺</p>
+  <div class="btns">
+    <button onclick="forgive()">Forgive me 🥺</button>
+    <button onclick="rain(['💖','💕','❤️','💗'])">Send love 💌</button>
+    <button onclick="addMore()">Sorry again 🙇‍♀️</button>
+  </div>
+  <p id="msg"></p>
+  <ol id="list"></ol>
+  <script>
+    var names = ['Diyu', 'Divya', 'Divyuuu', 'Baby', 'Shona', 'Jaanu', 'My love', 'Cutiepie', 'Diyuuu', 'Babu'];
+    var emojis = ['🥺', '😢', '💖', '🙇‍♀️', '🌹', '😭', '💕', '🙏', '🧸', '💗', '😔', '❤️'];
+    var html = '';
+    for (var i = 1; i <= 100; i++) {
+      var name = names[(i - 1) % names.length];
+      var e1 = emojis[(i - 1) % emojis.length];
+      var e2 = emojis[(i * 5) % emojis.length];
+      html += '<li><span class="n">' + i + '.</span> Sorry ' + name + ' ' + e1 + e2 + '</li>';
+    }
+    document.getElementById('list').innerHTML = html;
+    var count = 100;
+    function rain(em) {
+      for (var k = 0; k < 25; k++) {
+        var h = document.createElement('span');
+        h.className = 'heart';
+        h.textContent = em[k % em.length];
+        h.style.left = (Math.random() * 92) + 'vw';
+        h.style.animationDelay = Math.random() + 's';
+        document.body.appendChild(h);
+        setTimeout(function (x) { return function () { x.remove(); }; }(h), 4500);
+      }
+    }
+    function forgive() {
+      document.getElementById('msg').textContent = 'Forgiven! I love you Diyu, my Shona 💖';
+      rain(['💖', '🥰', '💕', '😍', '❤️']);
+    }
+    function addMore() {
+      count++;
+      var li = document.createElement('li');
+      li.innerHTML = '<span class="n">' + count + '.</span> Sorry ' + names[count % names.length] + ' ' + emojis[count % emojis.length];
+      document.getElementById('list').appendChild(li);
+      li.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
